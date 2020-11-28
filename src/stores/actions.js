@@ -8,7 +8,18 @@ export const getContactFromApi = () => {
       .then(result => {
         const contacts = result.data
         if(contacts) {
-          contacts.sort()
+          contacts.sort((a, b) => {
+            let firstNameA = a.firstName.toLowerCase(),
+                firstNameB = b.firstName.toLowerCase();
+
+            if (firstNameA < firstNameB) {
+                return -1;
+            }
+            if (firstNameA > firstNameB) {
+                return 1;
+            }
+            return 0;
+          });
           dispatch({
             type: 'SET_CONTACTS',
             contacts
